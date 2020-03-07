@@ -82,6 +82,7 @@ public class Tank {
     }
 
     public void fire() {
-        tf.b = new Bullet(300,300,Dir.DOWN);//这里只能发射一颗子弹
+
+         tf.bulletList.add( new Bullet(x,y,dir ,tf));
     }
 }

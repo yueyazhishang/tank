@@ -1,17 +1,20 @@
 package com.mashibing.tank;
 
 import com.mashibing.tank.constant.Dir;
-import sun.awt.image.ImageAccessException;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankFrame extends Frame {
     Tank myTank = new Tank(200, 200, Dir.DOWN ,this);
-    Bullet b = new Bullet(300,300,Dir.DOWN);
+    List<Bullet> bulletList = new ArrayList<Bullet>();
+
+    Bullet b = new Bullet(300,300,Dir.DOWN ,this);
     static final int GATE_WIDTH =800 ,GAME_HEIGHT=500;
     public TankFrame() {
         //设置宽、高
@@ -38,9 +41,16 @@ public class TankFrame extends Frame {
      * @param g
      */
     @Override
-    public void paint(Graphics g) {
+    public void paint(java.awt.Graphics g) {
+        Color color = g.getColor();
+        g.setColor(Color.WHITE);
+        g.drawString("子弹数量：" +bulletList.size(),10,50);
+        g.setColor(color);
         myTank.paint(g);
-        b.paint(g);
+        for (int i = 0; i < bulletList.size(); i++) {
+            Bullet b = bulletList.get(i);
+            b.paint(g);
+        }
     }
 
     /**
@@ -50,7 +60,7 @@ public class TankFrame extends Frame {
      */
     Image offScreenImage = null ;
     @Override
-    public void update(Graphics g){
+    public void update(java.awt.Graphics g){
         if(offScreenImage == null ){
             offScreenImage = this.createImage(GATE_WIDTH,GAME_HEIGHT);
         }
