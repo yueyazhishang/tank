@@ -9,13 +9,15 @@ public class Tank {
     private Dir dir;
     private static final int SPEED = 5;
     private boolean moving ;
+    private TankFrame tf =null;
     public Tank() {
     }
 
-    public Tank(int x, int y, Dir dir) {
+    public Tank(int x, int y, Dir dir ,TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tf =tf ;
     }
     private void move(){
         if(!moving){
@@ -77,5 +79,9 @@ public class Tank {
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+
+    public void fire() {
+        tf.b = new Bullet(300,300,Dir.DOWN);//这里只能发射一颗子弹
     }
 }

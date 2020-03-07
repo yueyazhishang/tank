@@ -10,7 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200, 200, Dir.DOWN);
+    Tank myTank = new Tank(200, 200, Dir.DOWN ,this);
     Bullet b = new Bullet(300,300,Dir.DOWN);
     static final int GATE_WIDTH =800 ,GAME_HEIGHT=500;
     public TankFrame() {
@@ -106,6 +106,10 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_DOWN:
                     bD = false;
+                    break;
+                    //按住control时 发射子弹
+                case KeyEvent.VK_CONTROL:
+                    myTank.fire();
                     break;
                 default:
                     break;
