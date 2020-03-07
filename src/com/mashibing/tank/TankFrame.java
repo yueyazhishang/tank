@@ -37,23 +37,63 @@ public class TankFrame extends Frame {
     public void paint(Graphics g) {
         System.out.println("paint");
         g.fillRect(x, y, 50, 50);
-        x += 10;
-        y += 10;
+//        x += 10;
+//        y += 10;
 
     }
 
     class MyKeyListener extends KeyAdapter {
-
+        // 组合标记，用于确定坦克（左下、右下等）
+        boolean bL = false;
+        boolean bU = false;
+        boolean bR = false;
+        boolean bD = false;
 
         @Override
         public void keyPressed(KeyEvent e) {
             System.out.println("key pressd...");
+            int key = e.getKeyCode();
+            switch (key) {
+                case KeyEvent.VK_LEFT:
+                    bL = true;
+                    x -= 10;
+                    break;
+                case KeyEvent.VK_UP:
+                    bU = true;
+                    y -= 10;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    bR = true ;
+                    x += 10;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    bD= true;
+                    y += 10;
+                    break;
+                default:break;
+            }
 //            x+=200;
 //            repaint();
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
+            int key = e.getKeyCode();
+            switch (key) {
+                case KeyEvent.VK_LEFT:
+                    bL = false;
+                    break;
+                case KeyEvent.VK_UP:
+                    bU = false;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    bR = false ;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    bD= false;
+                    break;
+                default:break;
+            }
             System.out.println("key released...");
         }
     }
