@@ -7,8 +7,8 @@ import java.awt.*;
 public class Tank {
     private int x, y;
     private Dir dir;
-    public static final int SPEED = 10;
-
+    private static final int SPEED = 10;
+    private boolean moving ;
     public Tank() {
     }
 
@@ -17,11 +17,10 @@ public class Tank {
         this.y = y;
         this.dir = dir;
     }
-
-
-    public void paint(Graphics g) {
-        System.out.println("paint" + dir.name());
-        g.fillRect(x, y, 50, 50);
+    private void move(){
+        if(!moving){
+            return;
+        }
         switch (dir) {
             case LEFT:
                 x -= SPEED;
@@ -38,6 +37,12 @@ public class Tank {
             default:
                 break;
         }
+    }
+
+    public void paint(Graphics g) {
+        System.out.println("paint" + dir.name());
+        g.fillRect(x, y, 50, 50);
+        move();
     }
 
     public int getX() {
@@ -62,5 +67,13 @@ public class Tank {
 
     public void setDir(Dir dir) {
         this.dir = dir;
+    }
+
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
     }
 }
