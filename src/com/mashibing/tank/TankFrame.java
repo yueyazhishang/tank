@@ -56,19 +56,15 @@ public class TankFrame extends Frame {
             switch (key) {
                 case KeyEvent.VK_LEFT:
                     bL = true;
-                    x -= 10;
                     break;
                 case KeyEvent.VK_UP:
                     bU = true;
-                    y -= 10;
                     break;
                 case KeyEvent.VK_RIGHT:
                     bR = true ;
-                    x += 10;
                     break;
                 case KeyEvent.VK_DOWN:
                     bD= true;
-                    y += 10;
                     break;
                 default:break;
             }
