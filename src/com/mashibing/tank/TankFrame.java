@@ -7,10 +7,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
-    int x =200 ,y=200;
-    public TankFrame()  {
+    int x = 200, y = 200;
+
+    public TankFrame() {
         //设置宽、高
-        this.setSize(800,600);
+        this.setSize(800, 600);
         //设置大小不可变
         this.setResizable(false);
         this.setTitle("tank war");
@@ -29,22 +30,26 @@ public class TankFrame extends Frame {
 
     /**
      * 每次触发前会先清空画板
+     *
      * @param g
      */
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         System.out.println("paint");
-        g.fillRect(x,y,50,50);
-        y+=10;
-        x+=10;
+        g.fillRect(x, y, 50, 50);
+        x += 10;
+        y += 10;
+
     }
 
-    class MyKeyListener extends KeyAdapter{
+    class MyKeyListener extends KeyAdapter {
 
 
         @Override
         public void keyPressed(KeyEvent e) {
             System.out.println("key pressd...");
+//            x+=200;
+//            repaint();
         }
 
         @Override
