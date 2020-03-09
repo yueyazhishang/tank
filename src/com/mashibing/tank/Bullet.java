@@ -12,7 +12,8 @@ public class Bullet {
     private static final int SPEED = 3;
     private int x ,y ;
     private Dir dir ;
-    private static final  int WIDTH =10 ,HEIGTH=10;
+    public static int WIDTH = ResourceMgr.bulletD.getWidth();
+    public static int HEIGHT = ResourceMgr.bulletD.getHeight();
     private TankFrame tf ;
     private boolean live = true;
     public Bullet(int x, int y, Dir dir ,TankFrame tf ) {
@@ -25,9 +26,6 @@ public class Bullet {
         if(!live){
             tf.bulletList.remove(this);
         }
-        Color c = g.getColor();
-        g.setColor(Color.RED);
-        g.fillOval(x,y,WIDTH,HEIGTH);
         switch (dir) {
             case LEFT:
                 g.drawImage(ResourceMgr.bulletL,x,y,null);
