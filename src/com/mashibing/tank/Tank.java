@@ -46,6 +46,23 @@ public class Tank {
         g.setColor(Color.GREEN);
         System.out.println("paint" + dir.name());
         g.fillRect(x, y, 50, 50);
+        switch (dir) {
+            case LEFT:
+               g.drawImage(ResourceMgr.tankL,x,y,null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.tankU,x,y,null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.tankR,x,y,null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.tankD,x,y,null);
+                break;
+            default:
+                break;
+        }
+
         move();
     }
 
