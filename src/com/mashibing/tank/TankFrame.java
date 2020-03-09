@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TankFrame extends Frame {
-    static int tkX =200 ,tkY =200 ;
+    static int tkX =200 ,tkY =400 ;
     static int bulletX =200 ,bulletY =200 ;
     Tank myTank = new Tank(tkX, tkY, Dir.DOWN ,this);
     List<Bullet> bulletList = new ArrayList<Bullet>();
-
+    List<Tank> tanks = new ArrayList<>();
     Bullet b = new Bullet(bulletX,bulletX,Dir.DOWN ,this);
     static final int GATE_WIDTH =800 ,GAME_HEIGHT=500;
     public TankFrame() {
@@ -52,6 +52,10 @@ public class TankFrame extends Frame {
         for (int i = 0; i < bulletList.size(); i++) {
             Bullet b = bulletList.get(i);
             b.paint(g);
+        }
+        for(int i =0 ;i<tanks.size();i++){
+            Tank tank = tanks.get(i);
+            tank.paint(g);
         }
     }
 
@@ -120,10 +124,11 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                     //按住control时 发射子弹
-                case KeyEvent.VK_CONTROL:
+                case KeyEvent.VK_SHIFT:
                     myTank.fire();
                     break;
                 default:
+                    System.out.println(key);
                     break;
             }
             setMainTankDir();

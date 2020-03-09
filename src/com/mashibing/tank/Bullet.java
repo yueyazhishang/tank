@@ -9,7 +9,7 @@ import java.awt.*;
  */
 public class Bullet {
     //速度
-    private static final int SPEED = 3;
+    private static final int SPEED = 6;
     private int x ,y ;
     private Dir dir ;
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
