@@ -28,7 +28,8 @@ public class Explode {
 		
 		if(step >= ResourceMgr.explodes.length) {
 //			TankFrame.INSTANCE.explodes.remove(this);
-			step = 0;
+//			step = 0;
+			TankFrame.explodes.remove(this);
 		}
 		
 		

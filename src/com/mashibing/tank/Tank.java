@@ -47,13 +47,16 @@ public class Tank {
             default:
                 break;
         }
-        if(random.nextInt(10)>8){
+        if(random.nextInt(10)>8 &&  this.group == Group.BAD){
             this.fire();
         }
     }
 
     public void paint(Graphics g) {
         if(!living){
+            tf.tanks.remove(this);
+        }
+        if(this.x> TankFrame.GATE_WIDTH || this.y>TankFrame.GAME_HEIGHT){
             tf.tanks.remove(this);
         }
         switch (dir) {
