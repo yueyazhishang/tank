@@ -10,16 +10,17 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class TankFrame extends Frame {
-    static int tkX =200 ,tkY =400 ;
-    static int bulletX =200 ,bulletY =200 ;
-    Tank myTank = new Tank(tkX, tkY, Dir.DOWN ,this , Group.GOOD);
+    static int tkX = 200, tkY = 400;
+    static int bulletX = 200, bulletY = 200;
+    Tank myTank = new Tank(tkX, tkY, Dir.DOWN, this, Group.GOOD);
     List<Bullet> bulletList = new ArrayList<Bullet>();
     List<Tank> tanks = new ArrayList<>();
-    Bullet b = new Bullet(bulletX,bulletX,Dir.DOWN ,this ,Group.GOOD);
-    static final int GATE_WIDTH =800 ,GAME_HEIGHT=500;
+    Bullet b = new Bullet(bulletX, bulletX, Dir.DOWN, this, Group.GOOD);
+    static final int GATE_WIDTH = 800, GAME_HEIGHT = 500;
+
+    Explode explode = new Explode(100, 100);
 
     public TankFrame() {
         //设置宽、高
@@ -49,43 +50,45 @@ public class TankFrame extends Frame {
     public void paint(java.awt.Graphics g) {
         Color color = g.getColor();
         g.setColor(Color.WHITE);
-        g.drawString("子弹数量：" +bulletList.size(),10,50);
-        g.drawString("敌人数量：" +tanks.size(),10,80);
+        g.drawString("子弹数量：" + bulletList.size(), 10, 50);
+        g.drawString("敌人数量：" + tanks.size(), 10, 80);
         g.setColor(color);
         myTank.paint(g);
         for (int i = 0; i < bulletList.size(); i++) {
             Bullet b = bulletList.get(i);
             b.paint(g);
         }
-        for(int i =0 ;i<tanks.size();i++){
+        for (int i = 0; i < tanks.size(); i++) {
             Tank tank = tanks.get(i);
             tank.paint(g);
         }
-        for(int i= 0 ;i<bulletList.size() ;i++){
-            for(int j = 0 ;j<tanks.size() ;j++){
-                bulletList.get(i).collideWith(tanks.get(j)) ;
+        for (int i = 0; i < bulletList.size(); i++) {
+            for (int j = 0; j < tanks.size(); j++) {
+                bulletList.get(i).collideWith(tanks.get(j));
             }
         }
+        explode.paint(g);
     }
 
     /**
      * update 在paint之前调用
      * 解决 画面闪烁 ，在内存中构建新的图片，等内存中处理完成后再一次性在评估上画
-     *
      */
-    Image offScreenImage = null ;
+    Image offScreenImage = null;
+
     @Override
-    public void update(java.awt.Graphics g){
-        if(offScreenImage == null ){
-            offScreenImage = this.createImage(GATE_WIDTH,GAME_HEIGHT);
+    public void update(java.awt.Graphics g) {
+        if (offScreenImage == null) {
+            offScreenImage = this.createImage(GATE_WIDTH, GAME_HEIGHT);
         }
         Graphics gOffScreen = offScreenImage.getGraphics();
         Color color = gOffScreen.getColor();
         gOffScreen.setColor(Color.BLACK);
-        gOffScreen.fillRect(0,0,GATE_WIDTH,GAME_HEIGHT);
+        gOffScreen.fillRect(0, 0, GATE_WIDTH, GAME_HEIGHT);
         paint(gOffScreen);
-        g.drawImage(offScreenImage,0,0,null);
+        g.drawImage(offScreenImage, 0, 0, null);
     }
+
     class MyKeyListener extends KeyAdapter {
         // 组合标记，用于确定坦克（左下、右下等）
         boolean bL = false;
@@ -132,7 +135,7 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_DOWN:
                     bD = false;
                     break;
-                    //按住control时 发射子弹
+                //按住control时 发射子弹
                 case KeyEvent.VK_SHIFT:
                     myTank.fire();
                     break;
@@ -144,9 +147,9 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-            if(!bL && !bR && !bU && !bD){
+            if (!bL && !bR && !bU && !bD) {
                 myTank.setMoving(false);
-            }else {
+            } else {
                 myTank.setMoving(true);
             }
             if (bL) {
