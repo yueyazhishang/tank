@@ -1,26 +1,31 @@
 package com.mashibing.tank;
 
 import com.mashibing.tank.constant.Dir;
+import com.mashibing.tank.constant.Group;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Tank {
     private int x, y;
     private Dir dir;
-    private static final int SPEED = 5;
-    private boolean moving ;
+    private static final int SPEED = 3;
+    private boolean moving =true;
     public static int WIDTH = ResourceMgr.tankD.getWidth();
     public static int HEIGHT = ResourceMgr.tankD.getHeight();
     private TankFrame tf =null;
     private boolean living = true ;
+    private Group group;
+    private Random random = new Random();
     public Tank() {
     }
 
-    public Tank(int x, int y, Dir dir ,TankFrame tf) {
+    public Tank(int x, int y, Dir dir ,TankFrame tf ,Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tf =tf ;
+        this.group = group;
     }
     private void move(){
         if(!moving){
@@ -41,6 +46,9 @@ public class Tank {
                 break;
             default:
                 break;
+        }
+        if(random.nextInt(10)>8){
+            this.fire();
         }
     }
 
@@ -102,10 +110,18 @@ public class Tank {
 
     public void fire() {
 
-         tf.bulletList.add( new Bullet(x+Tank.WIDTH/2-Bullet.WIDTH/2,y+Tank.HEIGHT/2-Bullet.HEIGHT/2,dir ,tf));
+         tf.bulletList.add( new Bullet(x+Tank.WIDTH/2-Bullet.WIDTH/2,y+Tank.HEIGHT/2-Bullet.HEIGHT/2,dir ,tf,this.group));
     }
 
     public void die() {
         this.living = false;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

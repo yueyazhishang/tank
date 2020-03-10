@@ -1,6 +1,7 @@
 package com.mashibing.tank;
 
 import com.mashibing.tank.constant.Dir;
+import com.mashibing.tank.constant.Group;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -9,15 +10,17 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class TankFrame extends Frame {
     static int tkX =200 ,tkY =400 ;
     static int bulletX =200 ,bulletY =200 ;
-    Tank myTank = new Tank(tkX, tkY, Dir.DOWN ,this);
+    Tank myTank = new Tank(tkX, tkY, Dir.DOWN ,this , Group.GOOD);
     List<Bullet> bulletList = new ArrayList<Bullet>();
     List<Tank> tanks = new ArrayList<>();
-    Bullet b = new Bullet(bulletX,bulletX,Dir.DOWN ,this);
+    Bullet b = new Bullet(bulletX,bulletX,Dir.DOWN ,this ,Group.GOOD);
     static final int GATE_WIDTH =800 ,GAME_HEIGHT=500;
+
     public TankFrame() {
         //设置宽、高
         this.setSize(GATE_WIDTH, GAME_HEIGHT);
